@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { CreateUser } from "../useCases/CreateUser/CreateUser";
+import { Request, Response } from 'express';
+import { CreateUser } from '../useCases/CreateUser/CreateUser';
 
 export class CreateUserController {
   constructor(private createUser: CreateUser) {}
@@ -13,7 +13,7 @@ export class CreateUserController {
     } catch (err) {
       return res
         .status(400)
-        .json({ message: err.message || "unexpected error" });
+        .json({ message: err.message || 'unexpected error' });
     }
   }
 }

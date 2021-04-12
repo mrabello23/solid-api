@@ -1,5 +1,5 @@
-import { User } from "../../entities/User";
-import { IUserRepository } from "../IUserRepository";
+import { User } from '../../entities/User';
+import { IUserRepository } from '../IUserRepository';
 
 export class UsersRepositories implements IUserRepository {
   private users: User[] = [];

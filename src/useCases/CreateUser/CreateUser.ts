@@ -1,7 +1,7 @@
-import { User } from "../../entities/User";
-import { IMailProvider } from "../../providers/IMailProvider";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { ICreateUserRequestDTO } from "./ICreateUserRequestDTO";
+import { User } from '../../entities/User';
+import { IMailProvider } from '../../providers/IMailProvider';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { ICreateUserRequestDTO } from './ICreateUserRequestDTO';
 
 export class CreateUser {
   constructor(
@@ -9,19 +9,27 @@ export class CreateUser {
     private mailProvider: IMailProvider
   ) {}
 
-  async execute(data: ICreateUserRequestDTO) {
+  async execute(data: ICreateUserRequestDTO): Promise<void> {
     const userExists = await this.userRepository.findByEmail(data.email);
 
     if (userExists) {
-      throw new Error("User already exists.");
+      throw new Error('User already exists.');
     }
 
     const user = new User(data);
+
     await this.userRepository.save(user);
+
     await this.mailProvider.sendMail({
-      to: { name: data.name, email: data.email },
-      from: { name: "Equipe de Suporte", email: "suporte@teste.com.br" },
-      subject: "Bem vindo ao app!",
+      to: {
+        name: data.name,
+        email: data.email
+      },
+      from: {
+        name: 'Equipe de Suporte',
+        email: 'suporte@teste.com.br'
+      },
+      subject: 'Bem vindo ao app!',
       body: `<p>Olá, ${data.name}, Seja bem vindo ao app!</p>`,
     });
   }
