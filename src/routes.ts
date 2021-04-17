@@ -7,7 +7,7 @@ router.post('/users', (req, res) => {
   return createUserController.handle(req, res);
 });
 
-router.get('healthcheck', (req, res) => {
+router.get('/healthcheck', (req, res) => {
   return res.send('Up and Running!');
 });
 

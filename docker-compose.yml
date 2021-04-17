@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: solidapi-node
+    command: npm start:dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+    environment:
+      NODE_ENV: development
+      PORT: ${PORT}
+      HOST: ${HOST}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
+      CONNECTION_STRING: "${DB_SCHEMA}://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+  db:
+    image: postgres:11.2-alpine
+    container_name: solidapi-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - app-network
