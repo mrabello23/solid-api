@@ -16,18 +16,18 @@ export class CreateUser {
       throw new Error('User already exists.');
     }
 
-    const user = new User(data);
+    const user = new User();
 
     await this.userRepository.save(user);
 
     await this.mailProvider.sendMail({
       to: {
         name: data.name,
-        email: data.email
+        email: data.email,
       },
       from: {
         name: 'Equipe de Suporte',
-        email: 'suporte@teste.com.br'
+        email: 'suporte@teste.com.br',
       },
       subject: 'Bem vindo ao app!',
       body: `<p>Olá, ${data.name}, Seja bem vindo ao app!</p>`,

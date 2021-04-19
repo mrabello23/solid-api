@@ -19,13 +19,18 @@ services:
       MAIL_PORT: ${MAIL_PORT}
       MAIL_USER: ${MAIL_USER}
       MAIL_PASS: ${MAIL_PASS}
-      CONNECTION_STRING: "${DB_SCHEMA}://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
     depends_on:
       - postgres
     networks:
       - app-network
   db:
-    image: postgres:11.2-alpine
+    image: postgres:9.6.1
     container_name: solidapi-db
     environment:
       POSTGRES_USER: ${DB_USER}

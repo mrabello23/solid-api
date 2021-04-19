@@ -1,6 +1,6 @@
 import { CreateUserController } from '../../controllers/CreateUserController';
 import { MailtrapMailProvider } from '../../providers/MailtrapMailProvider';
-import { UsersRepositories } from '../../repositories/postgres/UsersRepositories';
+import { UsersRepositories } from '../../repositories/UsersRepositories';
 import { CreateUser } from './CreateUser';
 
 const mailtrapMailProvider = new MailtrapMailProvider();
